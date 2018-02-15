@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-//import youtubeSearch from 'youtube-search';
 import axios from 'axios';
 import Results from './Results.js';
+import config from '../config.js';
 
-const API_KEY = 'AIzaSyDLZPb7muYEK8eTT8LDbrCZfHfOicvrY7A';
+const API_KEY = config.API_KEY;
 /*
 var opts = {
   maxResults: 10,
