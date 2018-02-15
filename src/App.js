@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import youtubeSearch from 'youtube-search';
+import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
 
 const API_KEY = 'AIzaSyDLZPb7muYEK8eTT8LDbrCZfHfOicvrY7A';
-
 var opts = {
   maxResults: 10,
   key: API_KEY
 };
-
 class NameForm extends Component {
   constructor(props) {
     super(props);
@@ -36,13 +35,24 @@ class NameForm extends Component {
   }
 
 
-  searchYT(term){
+    searchYT(term){
       console.log("hi "+term + " loading is: "+this.state.loading);
       this.setState({
         loading: true
       });
-      
-      /*
+
+        axios.get('https://www.googleapis.com/youtube/v3/channels?part=snippet&forUsername='+this.state.value+'&key='+API_KEY)
+        .then( (response) =>{
+          console.log(response.data);
+          this.setState({
+            loading: false
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+/*
       youtubeSearch(term, opts, (err, results) => {
         if(err) return console.log(err);
         console.dir(results);
@@ -51,7 +61,7 @@ class NameForm extends Component {
         });
         console.log("loading after search: "+this.state.loading);
       });
-      */
+*/
   }
 
 
