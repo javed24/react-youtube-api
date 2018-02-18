@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Results from './Results.js';
 import config from '../config.js';
+import Playlists from './Playlists.js';
+var ReactRouter = require('react-router-dom');
+var Router = ReactRouter.BrowserRouter;
+var Route = ReactRouter.Route;
 
 const API_KEY = config.API_KEY;
 /*
 var opts = {
-  maxResults: 10,
-  key: API_KEY
+maxResults: 10,
+key: API_KEY
 };
 */
 class NameForm extends Component {
@@ -16,8 +20,10 @@ class NameForm extends Component {
     this.state = {
       value: '',
       loading: false,
-      channelName: '',
-      channelDescription: ''
+      channelName: null,
+      channelDescription: null,
+      channelImage: '',
+      channelId: null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -51,10 +57,13 @@ class NameForm extends Component {
     .then( (response) =>{
       console.log(response.data.items[0].snippet.title);
       console.log(response.data.items[0].snippet.description);
+      console.log(response.data.items[0].snippet.thumbnails.default.url);
       this.setState({
         loading: false,
         channelName: response.data.items[0].snippet.title,
-        channelDescription: response.data.items[0].snippet.description
+        channelDescription: response.data.items[0].snippet.description,
+        channelImage: response.data.items[0].snippet.thumbnails.default.url,
+        channelId: response.data.items[0].snippet.channelId
       });
     })
     .catch(function (error) {
@@ -84,16 +93,25 @@ render() {
         </label>
         <input type="submit" value={this.state.loading ? 'Loading...': 'Search'} />
       </form>
-      <div>
-        <Results
-          myapi_key = {API_KEY}
-          name = {this.state.channelName}
-          description = {this.state.channelDescription}
-        />
+      <Router>
+          <div>
+            {this.state.channelName !== null &&
+              <Results
+                myapi_key = {API_KEY}
+                name = {this.state.channelName}
+                description = {this.state.channelDescription}
+                image = {this.state.channelImage}
+                ch_id = {this.state.channelId}
+              />}
+            {this.state.channelId !== null &&
+              <Route path="/playlists" component={Playlists}
+            />}
+          </div>
+
+        </Router>
       </div>
-    </div>
-  );
-}
+    );
+  }
 }
 
 export default NameForm;
