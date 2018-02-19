@@ -103,7 +103,7 @@ render() {
                 image = {this.state.channelImage}
                 ch_id = {this.state.channelId}
               />}
-            {this.state.channelId !== null &&
+            {this.state.channelId !== null && //<Route path="/" component={App}/>
               <Route path="/playlists" component={Playlists}
             />}
           </div>

@@ -20,6 +20,7 @@ class Results extends Component{
         <h1>You searched for: {this.props.name}</h1>
         <p>
           Channel description: {this.props.description}
+          Channel id: {this.props.channelId}
         </p>
         <div>
           <Link to = '/playlists'>
