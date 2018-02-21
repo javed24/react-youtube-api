@@ -57,7 +57,7 @@ class NameForm extends Component {
     .then( (response) =>{
       console.log(response.data.items[0].snippet.title);
       console.log(response.data.items[0].snippet.description);
-      console.log(response.data.items[0].snippet.thumbnails.default.url);
+      console.log("id: "+response.data.items[0].snippet.channelId);
       this.setState({
         loading: false,
         channelName: response.data.items[0].snippet.title,
@@ -93,25 +93,27 @@ render() {
         </label>
         <input type="submit" value={this.state.loading ? 'Loading...': 'Search'} />
       </form>
-      <Router>
-          <div>
-            {this.state.channelName !== null &&
-              <Results
-                myapi_key = {API_KEY}
-                name = {this.state.channelName}
-                description = {this.state.channelDescription}
-                image = {this.state.channelImage}
-                ch_id = {this.state.channelId}
-              />}
-            {this.state.channelId !== null && //<Route path="/" component={App}/>
-              <Route path="/playlists" component={Playlists}
-            />}
-          </div>
 
-        </Router>
+      <div>
+        {this.state.channelName !== null &&
+          <Results
+            myapi_key = {API_KEY}
+            name = {this.state.channelName}
+            description = {this.state.channelDescription}
+            image = {this.state.channelImage}
+            ch_id = {this.state.channelId}
+          />}
+          {/* <Router>
+            {this.state.channelId !== null && //<Route path="/" component={App}/>
+            <Route path="/playlists" component={Playlists}
+          />}
+          </Router> */}
       </div>
-    );
-  }
+
+
+    </div>
+  );
+}
 }
 
 export default NameForm;
