@@ -39,14 +39,14 @@ class NameForm extends Component {
   handleSubmit(event) {
     //alert('A name was submitted: ' + this.state.value);
     //this.setState({value: event.target.value});
-    console.log("you submitted: "+ this.state.value);
+    //console.log("you submitted: "+ this.state.value);
     this.searchYT(this.state.value);
     event.preventDefault();
   }
 
 
   searchYT(term){
-    console.log("hi "+term + " loading is: "+this.state.loading);
+    //console.log("hi "+term + " loading is: "+this.state.loading);
     this.setState({
       loading: true
     });
@@ -55,9 +55,9 @@ class NameForm extends Component {
     //youtube.search.list takes care of spaces in the username
     axios.get('https://www.googleapis.com/youtube/v3/search?part=snippet&q=='+this.state.value+'&type=channel&key='+API_KEY)
     .then( (response) =>{
-      console.log(response.data.items[0].snippet.title);
-      console.log(response.data.items[0].snippet.description);
-      console.log("id: "+response.data.items[0].snippet.channelId);
+      // console.log(response.data.items[0].snippet.title);
+      // console.log(response.data.items[0].snippet.description);
+      // console.log("id: "+response.data.items[0].snippet.channelId);
       this.setState({
         loading: false,
         channelName: response.data.items[0].snippet.title,
