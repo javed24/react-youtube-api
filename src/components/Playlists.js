@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import config from '../config.js';
 import axios from 'axios';
-import Iframe from 'react-iframe';
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+//import Iframe from 'react-iframe';
+import ReactHtmlParser from 'react-html-parser';
 
 var queryString = require('query-string');
 const API_KEY = config.API_KEY;
@@ -13,7 +13,8 @@ class showPlaylists extends Component{
     super(props);
     this.state ={
       id: '',
-      iframe: null
+      iframe: [],
+      title: ''
     };
   }
   componentDidMount(){
@@ -27,8 +28,14 @@ class showPlaylists extends Component{
     axios.get('https:www.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails%2Cplayer&channelId='+playlist.channelId+'&maxResults=25&key='+API_KEY)
     .then( (response) =>{
       console.log("video id: "+response.data.items[0].player.embedHtml);
+      let iFrameArray = [];
+      for(let i=0; i<10;i++){
+        iFrameArray.push(response.data.items[i].player.embedHtml);
+      }
       this.setState({
-        iframe: response.data.items[1].player.embedHtml
+        id: playlist.channelId,
+        iframe: iFrameArray,
+        title: response.data.items[0].snippet.channelTitle
       });
     })
     .catch(function (error) {
@@ -37,13 +44,16 @@ class showPlaylists extends Component{
   }
 
   render(){
-    console.log("type: "+typeof(this.state.iframe))
+    let _iFrameArray = this.state.iframe
     return(
       <div>
-        <p>Your playlist id is:</p>
+        <p>Showing playlists for {this.state.title}</p>
         <div>
-
-          {ReactHtmlParser(this.state.iframe)}
+          <ul>
+            {_iFrameArray.map((iframe, index) => {
+              return <li key = {index}>{ReactHtmlParser(iframe)}</li>
+            })}
+          </ul>
         </div>
       </div>
     );

@@ -7,31 +7,33 @@ var ReactRouter = require('react-router-dom');
 var Router = ReactRouter.BrowserRouter;
 var Route = ReactRouter.Route;
 var Switch = ReactRouter.Switch;
+var Link = require('react-router-dom').Link;
 
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React-Youtube</h1>
         </header>
         <Router>
-        <div>
-          <Switch>
-            <Route exact path='/' component={NameForm} />
-            <Route  path='/playlists' component={Playlists} />
-            <Route render={function () {
-              return <p>Not Found</p>
-            }} />
-          </Switch>
+          <div>
+            <Switch>
+              <Route exact path='/' component={NameForm} />
+              <Route  path='/playlists' component={Playlists} />
+              <Route render={function () {
+                  return <p>Not Found</p>
+                }} />
+              </Switch>
+            </div>
+          </Router>
         </div>
-        </Router>
-      </div>
 
-    );
+      );
+    }
   }
-}
 
-export default App;
+  export default App;

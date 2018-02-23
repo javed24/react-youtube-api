@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Results from './Results.js';
 import config from '../config.js';
-import Playlists from './Playlists.js';
-var ReactRouter = require('react-router-dom');
-var Router = ReactRouter.BrowserRouter;
-var Route = ReactRouter.Route;
+//import Playlists from './Playlists.js';
+// var ReactRouter = require('react-router-dom');
+// var Router = ReactRouter.BrowserRouter;
+// var Route = ReactRouter.Route;
 
 const API_KEY = config.API_KEY;
 /*
