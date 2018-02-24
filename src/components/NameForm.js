@@ -2,18 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Results from './Results.js';
 import config from '../config.js';
-//import Playlists from './Playlists.js';
-// var ReactRouter = require('react-router-dom');
-// var Router = ReactRouter.BrowserRouter;
-// var Route = ReactRouter.Route;
-
+import TextField from 'material-ui/TextField';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import FlatButton from 'material-ui/FlatButton';
 const API_KEY = config.API_KEY;
-/*
-var opts = {
-maxResults: 10,
-key: API_KEY
-};
-*/
+
 class NameForm extends Component {
   constructor(props) {
     super(props);
@@ -32,21 +25,19 @@ class NameForm extends Component {
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
-    //console.log("inside handleChange: "+event.target.value);
+    this.setState({
+      value: event.target.value
+    });
+    console.log("value is: "+this.state.value);
   }
 
   handleSubmit(event) {
-    //alert('A name was submitted: ' + this.state.value);
-    //this.setState({value: event.target.value});
-    //console.log("you submitted: "+ this.state.value);
     this.searchYT(this.state.value);
+    console.log("handled submit");
     event.preventDefault();
   }
 
-
   searchYT(term){
-    //console.log("hi "+term + " loading is: "+this.state.loading);
     this.setState({
       loading: true
     });
@@ -69,51 +60,44 @@ class NameForm extends Component {
     .catch(function (error) {
       console.log(error);
     });
+  }
 
-    /*
-    youtubeSearch(term, opts, (err, results) => {
-    if(err) return console.log(err);
-    console.dir(results);
-    this.setState({
-    loading: false
-  });
-  console.log("loading after search: "+this.state.loading);
-});
-*/
-}
-
-
-render() {
-  return (
-    <div>
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value={this.state.loading ? 'Loading...': 'Search'} />
-      </form>
-
+  render() {
+    return (
       <div>
-        {this.state.channelName !== null &&
-          <Results
-            myapi_key = {API_KEY}
-            name = {this.state.channelName}
-            description = {this.state.channelDescription}
-            image = {this.state.channelImage}
-            ch_id = {this.state.channelId}
-          />}
-          {/* <Router>
-            {this.state.channelId !== null && //<Route path="/" component={App}/>
-            <Route path="/playlists" component={Playlists}
-          />}
-          </Router> */}
-      </div>
+        <form>
+            <MuiThemeProvider>
+              <div>
+              <TextField
+                hintText="Type a YouTuber's Name"
+                type = "text"
+                value={this.state.value}
+                onChange={this.handleChange}
+                /><br />
+                <FlatButton label={this.state.loading ? 'Loading...': 'Search'}
+                  primary={true}
+                  //value={this.state.loading ? 'Loading...': 'Search'}
+                  onClick = {this.handleSubmit}
+                  />
+              </div>
+            </MuiThemeProvider>
+        </form>
+
+        <div>
 
 
-    </div>
-  );
-}
-}
+          {this.state.channelName !== null &&
+            <Results
+              myapi_key = {API_KEY}
+              name = {this.state.channelName}
+              description = {this.state.channelDescription}
+              image = {this.state.channelImage}
+              ch_id = {this.state.channelId}
+              />}
+            </div>
+          </div>
+        );
+      }
+    }
 
-export default NameForm;
+    export default NameForm;
