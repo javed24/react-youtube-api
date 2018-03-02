@@ -17,8 +17,9 @@ class Results extends Component{
     var img = this.props.image;
     var channelID = this.props.ch_id;
     return(
-      <div>
+
       <MuiThemeProvider>
+      <div>
       {name && <Card style={{
         minWidth: '20em',
         width:'50%',
@@ -44,11 +45,12 @@ class Results extends Component{
       </Link>
       </CardActions>
       </Card>}
+      </div>
       </MuiThemeProvider>
-      </div>);
-    }
-
-
+    );
   }
 
-  export default Results;
+
+}
+
+export default Results;

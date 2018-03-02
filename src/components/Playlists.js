@@ -63,13 +63,14 @@ class showPlaylists extends Component{
     }
     //console.log("data is"+data)
     return(
-      <div>
-        <MuiThemeProvider>
+
+      <MuiThemeProvider>
+        <div>
           <Paper
             style={header}
             zDepth={2}>
             Playlist for: <b>{this.state.title}</b>
-          </Paper>
+        </Paper>
         <div>
           <ul>
             {data.map(function(name, index){
@@ -84,8 +85,9 @@ class showPlaylists extends Component{
             </ul>
 
           </div>
-        </MuiThemeProvider>
-      </div>
+        </div>
+      </MuiThemeProvider>
+
     )
   }
 }
