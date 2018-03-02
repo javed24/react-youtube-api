@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import config from '../config.js';
 import axios from 'axios';
-//import Iframe from 'react-iframe';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Paper from 'material-ui/Paper';
 import ReactHtmlParser from 'react-html-parser';
 
 var queryString = require('query-string');
@@ -44,19 +45,48 @@ class showPlaylists extends Component{
   }
 
   render(){
-    let _iFrameArray = this.state.iframe
+    //var playlist = queryString.parse(this.props.location.search);
+    // var id = this.state.id;
+    //console.log(id);
+    let data = this.state.iframe
+    const style = {
+      margin: 20,
+      minWidth:'300px',
+      textAlign: 'center',
+      display: 'inline-block',
+    };
+    const header={
+      display: 'inline-block',
+      margin: 20,
+      textAlign: 'center',
+      padding:'20px'
+    }
+    //console.log("data is"+data)
     return(
       <div>
-        <p>Showing playlists for {this.state.title}</p>
+        <MuiThemeProvider>
+          <Paper
+            style={header}
+            zDepth={2}>
+            Playlist for: <b>{this.state.title}</b>
+          </Paper>
         <div>
           <ul>
-            {_iFrameArray.map((iframe, index) => {
-              return <li key = {index}>{ReactHtmlParser(iframe)}</li>
-            })}
-          </ul>
-        </div>
+            {data.map(function(name, index){
+              return (
+                <div>
+                  <Paper style={style} zDepth={5}>
+                    {ReactHtmlParser(name)}
+                  </Paper>
+                </div>);
+              })}
+
+            </ul>
+
+          </div>
+        </MuiThemeProvider>
       </div>
-    );
+    )
   }
 }
 
