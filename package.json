@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "0.17.1",
+    "get-src": "^1.0.1",
     "html-react-parser": "^0.4.2",
     "material-ui": "^0.20.0",
     "query-string": "^5.1.0",
